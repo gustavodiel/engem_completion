@@ -818,12 +818,21 @@ case $state in
 		for engine in $(ls -1 gems/); do
 			desc="[Run command as $engine gem]"
 			_values 'engem' "$engine$desc"
-		done  
+		done
+
+		_values 'engem' "all[Run command for all engines and gems]"
+		_values 'engem' "gems[Run command for all gems]"
+		_values 'engem' "engines[Run command for all engines]"
 		;;
 	args)
 		case $line[2] in
 			rspec)
 				_my_path -P "spec/"
+				;;
+			reset_db)
+				_values 'environment' \
+					'test[Test environment]' \
+					'development[Local Development environment]'
 				;;
 			*)
 				case $line[1] in
@@ -834,6 +843,7 @@ case $state in
 												'console[Show Console command help]' \
 												'rails[Show Rails command help]' \
 												'rake[Show Rake command help]' \
+												'reset_db[Show Reset DB command help]' \
 												'rspec[Show RSpec command help]' \
 												'yard[Show Yard command help]'
 						;;
@@ -847,6 +857,7 @@ case $state in
 												'console[Execute Console]' \
 												'rails[Run Rails]' \
 												'rake[Run Rake]' \
+												'reset_db[Run db:drop db:create db:migrate]' \
 												'rspec[Run RSpec]' \
 												'yard[Run Yard]' \
 												'yardall[Compile Yard docs and Start server]'
